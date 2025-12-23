@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Vidéo</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+    cursor: none;
+}
+
+iframe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    pointer-events: none;
+}
+
+#start {
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    cursor: pointer;
+}
+
+#exit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    z-index: 99999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="start">Clique pour lancer la vidéo ▶</div>
+
+<iframe
+src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&loop=1&playlist=dQw4w9WgXcQ">
+</iframe>
+
+<audio id="music" loop>
+    <source src="allumer-le-feu.mp3" type="audio/mpeg">
+</audio>
+
+<div id="exit"></div>
+
+<script>
+const start = document.getElementById("start");
+const music = document.getElementById("music");
+
+start.onclick = () => {
+    start.remove();
+    music.play();
+    document.documentElement.requestFullscreen();
+};
+
+document.addEventListener("keydown", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
+window.onbeforeunload = () => "😈";
+
+document.getElementById("exit").onclick = () => {
+    music.pause();
+    document.exitFullscreen();
+    window.onbeforeunload = null;
+    document.body.innerHTML = "<h1 style='color:white;text-align:center;margin-top:40vh;'>Fin</h1>";
+};
+</script>
+
+</body>
+</html>
